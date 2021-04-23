@@ -24,8 +24,6 @@ public class AuthorController {
     public ResponseEntity<AuthorDto> create(@RequestBody @Valid CreateAuthorForm form) {
         Author author = form.convert();
         authorRepository.save(author);
-        AuthorDto authorDto = new AuthorDto(author);
-        System.out.println(authorDto);
         return ResponseEntity.ok(new AuthorDto(author));
     }
 }
