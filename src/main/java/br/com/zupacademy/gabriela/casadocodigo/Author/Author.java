@@ -1,11 +1,17 @@
 package br.com.zupacademy.gabriela.casadocodigo.Author;
 
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+@Validated
 @Entity
 public class Author {
 
@@ -15,7 +21,7 @@ public class Author {
 
     public Author(String name, String email, String description) {
         this.name = name;
-        this.email = email;
+        this.email = email.toLowerCase();
         this.description = description;
         this.createdAt = LocalDateTime.now();
     }
@@ -26,35 +32,29 @@ public class Author {
             sequenceName = "author_id_sequence",
             allocationSize = 1
     )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "author_id_sequence"
-    )
+    @GeneratedValue(strategy = SEQUENCE, generator = "author_id_sequence")
     @Column(
             name = "id",
             updatable = false
     )
     private Long id;
 
+    @NotEmpty
     @Column(
             name = "name",
             nullable = false
     )
     private String name;
 
-    @Column(
-            name = "email",
-            nullable = false
-    )
+    @Email
+    @NotEmpty
+    @Column(name = "email", nullable = false)
     private String email;
 
-
-    @Column(
-            name = "description",
-            length = 400
-    )
+    @Column(name = "description", length = 400)
     private String description;
 
+    @NotNull
     @Column(
             name = "created_at",
             columnDefinition = "TIMESTAMP",
