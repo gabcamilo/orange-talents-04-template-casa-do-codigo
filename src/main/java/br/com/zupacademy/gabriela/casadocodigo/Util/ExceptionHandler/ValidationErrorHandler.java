@@ -5,12 +5,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //Because it's a RestControllerAdvice the default response is a Json
@@ -26,16 +26,30 @@ public class ValidationErrorHandler {
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<FormErrorDto> handle(MethodArgumentNotValidException exception) {
-        List<FormErrorDto> dto = new ArrayList<>();
+    public ValidationErrorsOutputDto handle(MethodArgumentNotValidException exception) {
 
+        List<ObjectError> globalErrors = exception.getBindingResult().getGlobalErrors();
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-        fieldErrors.forEach(e -> {
-            String message = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-            FormErrorDto error = new FormErrorDto(e.getField(), message);
-            dto.add(error);
-        });
 
-        return dto;
+        return buildValidationErrors(globalErrors, fieldErrors);
+
+    }
+
+    private ValidationErrorsOutputDto buildValidationErrors(List<ObjectError> globalErrors,
+                                                            List<FieldError> fieldErrors) {
+        ValidationErrorsOutputDto validationErrors = new ValidationErrorsOutputDto();
+
+        globalErrors.forEach(error -> validationErrors.addError(getErrorMessage(error)));
+
+        fieldErrors.forEach(error -> {
+            String errorMessage = getErrorMessage(error);
+            validationErrors.addFieldError(error.getField(), errorMessage);
+        });
+        return validationErrors;
+    }
+
+
+    private String getErrorMessage(ObjectError error) {
+        return messageSource.getMessage(error, LocaleContextHolder.getLocale());
     }
 }

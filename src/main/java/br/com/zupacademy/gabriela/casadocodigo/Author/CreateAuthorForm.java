@@ -1,30 +1,27 @@
 package br.com.zupacademy.gabriela.casadocodigo.Author;
 
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 public class CreateAuthorForm {
 
     public CreateAuthorForm(String name, String email, String description) {
-        this.name = name.trim();
-        this.email = email.trim().toLowerCase();
-        this.description = description.trim();
+        this.name = name;
+        this.email = email;
+        this.description = description;
     }
 
-    @NotEmpty
+    @NotBlank
     private String name;
 
-    @NotEmpty
+    @NotBlank
     @Email
     private String email;
 
-    @Length(max = 400)
+    @Size(max = 400)
     private String description;
 
     public Author convert() {
-        return new Author(name, email, description);
+        return new Author(name.trim(), email.toLowerCase().trim(), description.trim());
     }
 
     public String getEmail() {
