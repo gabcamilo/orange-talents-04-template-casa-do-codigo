@@ -12,6 +12,11 @@ import java.time.LocalDateTime;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Validated
+@Table(
+        name = "author",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "author_email_unique", columnNames = "email")
+        })
 @Entity
 public class Author {
 
