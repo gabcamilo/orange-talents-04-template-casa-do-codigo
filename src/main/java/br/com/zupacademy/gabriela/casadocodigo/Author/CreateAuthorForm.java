@@ -26,4 +26,8 @@ public class CreateAuthorForm {
     public Author convert() {
         return new Author(name, email, description);
     }
+
+    public String getEmail() {
+        return email;
+    }
 }

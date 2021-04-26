@@ -2,10 +2,8 @@ package br.com.zupacademy.gabriela.casadocodigo.Author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -14,10 +12,17 @@ import javax.validation.Valid;
 public class AuthorController {
 
     private final AuthorRepository authorRepository;
+    private final ProhibitsAuthorDuplicatedEmailValidator prohibitsAuthorDuplicatedEmailValidator;
 
     @Autowired
-    AuthorController(AuthorRepository authorRepository) {
+    AuthorController(AuthorRepository authorRepository, ProhibitsAuthorDuplicatedEmailValidator prohibitsAuthorDuplicatedEmailValidator) {
         this.authorRepository = authorRepository;
+        this.prohibitsAuthorDuplicatedEmailValidator = prohibitsAuthorDuplicatedEmailValidator;
+    }
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(prohibitsAuthorDuplicatedEmailValidator);
     }
 
     @PostMapping
