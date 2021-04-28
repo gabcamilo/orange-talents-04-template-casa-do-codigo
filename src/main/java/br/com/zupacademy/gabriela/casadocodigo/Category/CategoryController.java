@@ -12,17 +12,10 @@ import javax.validation.Valid;
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
-    private final ProhibitsCategoryDuplicatedNameValidator prohibitsCategoryDuplicatedNameValidator;
 
     @Autowired
-    public CategoryController(CategoryRepository categoryRepository, ProhibitsCategoryDuplicatedNameValidator prohibitsCategoryDuplicatedNameValidator) {
+    public CategoryController(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.prohibitsCategoryDuplicatedNameValidator = prohibitsCategoryDuplicatedNameValidator;
-    }
-
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(prohibitsCategoryDuplicatedNameValidator);
     }
 
     @PostMapping

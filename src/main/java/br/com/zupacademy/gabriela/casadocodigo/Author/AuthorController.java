@@ -12,17 +12,10 @@ import javax.validation.Valid;
 public class AuthorController {
 
     private final AuthorRepository authorRepository;
-    private final ProhibitsAuthorDuplicatedEmailValidator prohibitsAuthorDuplicatedEmailValidator;
 
     @Autowired
-    AuthorController(AuthorRepository authorRepository, ProhibitsAuthorDuplicatedEmailValidator prohibitsAuthorDuplicatedEmailValidator) {
+    AuthorController(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
-        this.prohibitsAuthorDuplicatedEmailValidator = prohibitsAuthorDuplicatedEmailValidator;
-    }
-
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(prohibitsAuthorDuplicatedEmailValidator);
     }
 
     @PostMapping
