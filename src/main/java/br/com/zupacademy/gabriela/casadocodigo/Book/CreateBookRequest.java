@@ -6,7 +6,6 @@ import br.com.zupacademy.gabriela.casadocodigo.Category.Category;
 import br.com.zupacademy.gabriela.casadocodigo.Category.CategoryRepository;
 import br.com.zupacademy.gabriela.casadocodigo.Util.CustomValidation.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -28,8 +27,7 @@ public class CreateBookRequest {
             LocalDate publishingDate,
             Long category_id,
             Long author_id
-           )
-    {
+    ) {
         this.title = title;
         this.synopsis = synopsis;
         this.summary = summary;
@@ -46,7 +44,8 @@ public class CreateBookRequest {
     @UniqueValue(domainClass = Book.class, fieldName = "title")
     private String title;
 
-    @NotBlank @Size(max = 500)
+    @NotBlank
+    @Size(max = 500)
     private String synopsis;
     private String summary;
 
@@ -73,11 +72,11 @@ public class CreateBookRequest {
         Optional<Author> optionalAuthor = authorRepository.findById(author_id);
 
         //TODO: replace this code logic for a custom generic validator e.g. @Exists
-        if(optionalAuthor.isEmpty()){
+        if (optionalAuthor.isEmpty()) {
             throw new Exception("This author doesn't exist");
         }
 
-        if(optionalCategory.isEmpty()){
+        if (optionalCategory.isEmpty()) {
             throw new Exception("This category doesn't exist");
         }
 

@@ -9,7 +9,6 @@ import javax.validation.constraints.Min;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 

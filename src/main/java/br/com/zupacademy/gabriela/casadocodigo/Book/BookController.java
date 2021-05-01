@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -28,11 +26,11 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<CreateBookResponse> create(@RequestBody CreateBookRequest form) {
-        
+
         Book book;
-        try{
+        try {
             book = form.convert(categoryRepository, authorRepository);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return ResponseEntity.badRequest().build();
         }
         bookRepository.save(book);
