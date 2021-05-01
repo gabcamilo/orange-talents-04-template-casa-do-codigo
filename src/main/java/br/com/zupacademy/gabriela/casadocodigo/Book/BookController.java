@@ -28,13 +28,7 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<CreateBookResponse> create(@RequestBody @Valid CreateBookRequest form) {
-
-        Book book;
-        try {
-            book = form.convert(categoryRepository, authorRepository);
-        } catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
-        }
+        Book book = form.convert(categoryRepository, authorRepository);
         bookRepository.save(book);
         return ResponseEntity.ok(new CreateBookResponse(book));
     }
