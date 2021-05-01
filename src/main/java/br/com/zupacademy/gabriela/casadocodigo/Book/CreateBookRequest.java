@@ -4,6 +4,7 @@ import br.com.zupacademy.gabriela.casadocodigo.Author.Author;
 import br.com.zupacademy.gabriela.casadocodigo.Author.AuthorRepository;
 import br.com.zupacademy.gabriela.casadocodigo.Category.Category;
 import br.com.zupacademy.gabriela.casadocodigo.Category.CategoryRepository;
+import br.com.zupacademy.gabriela.casadocodigo.Util.CustomValidation.Exists;
 import br.com.zupacademy.gabriela.casadocodigo.Util.CustomValidation.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -47,6 +48,7 @@ public class CreateBookRequest {
     @NotBlank
     @Size(max = 500)
     private String synopsis;
+
     private String summary;
 
     @DecimalMin(value = "20")
@@ -62,24 +64,17 @@ public class CreateBookRequest {
     @JsonFormat(pattern = "yyyy-MM-dd", shape = Shape.STRING)
     private LocalDate publishingDate;
 
-    //TODO: exists validator
+    @Exists(domainClass = Category.class)
     private Long category_id;
+
+    @Exists(domainClass = Category.class)
     private Long author_id;
 
-    public Book convert(CategoryRepository categoryRepository, AuthorRepository authorRepository) throws Exception {
+    public Book convert(CategoryRepository categoryRepository, AuthorRepository authorRepository) {
 
-        Optional<Category> optionalCategory = categoryRepository.findById(category_id);
-        Optional<Author> optionalAuthor = authorRepository.findById(author_id);
+        Category category = categoryRepository.findById(category_id).get();
+        Author author = authorRepository.findById(author_id).get();
 
-        //TODO: replace this code logic for a custom generic validator e.g. @Exists
-        if (optionalAuthor.isEmpty()) {
-            throw new Exception("This author doesn't exist");
-        }
-
-        if (optionalCategory.isEmpty()) {
-            throw new Exception("This category doesn't exist");
-        }
-
-        return new Book(title, synopsis, summary, price, numberOfPages, isbn, publishingDate, optionalCategory.get(), optionalAuthor.get());
+        return new Book(title, synopsis, summary, price, numberOfPages, isbn, publishingDate, category, author);
     }
 }

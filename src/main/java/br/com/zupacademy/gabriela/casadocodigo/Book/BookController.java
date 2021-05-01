@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -25,7 +27,7 @@ public class BookController {
     CategoryRepository categoryRepository;
 
     @PostMapping
-    public ResponseEntity<CreateBookResponse> create(@RequestBody CreateBookRequest form) {
+    public ResponseEntity<CreateBookResponse> create(@RequestBody @Valid CreateBookRequest form) {
 
         Book book;
         try {
