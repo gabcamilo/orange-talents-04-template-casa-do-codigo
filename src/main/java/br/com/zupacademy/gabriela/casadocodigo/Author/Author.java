@@ -4,8 +4,6 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
@@ -44,7 +42,6 @@ public class Author {
     )
     private Long id;
 
-    @NotEmpty
     @Column(
             name = "name",
             nullable = false
@@ -52,14 +49,12 @@ public class Author {
     private String name;
 
     @Email
-    @NotEmpty
     @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "description", length = 400)
     private String description;
 
-    @NotNull
     @Column(
             name = "created_at",
             columnDefinition = "TIMESTAMP",

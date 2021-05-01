@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 
-public class CreateCategoryForm {
-    public CreateCategoryForm( @JsonProperty("name") String name) {
+public class CreateCategoryRequest {
+    public CreateCategoryRequest(@JsonProperty("name") String name) {
         this.name = name;
     }
 

@@ -2,7 +2,6 @@ package br.com.zupacademy.gabriela.casadocodigo.Author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,9 +18,9 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthorDto> create(@RequestBody @Valid CreateAuthorForm form) {
+    public ResponseEntity<CreteAuthorResponse> create(@RequestBody @Valid CreateAuthorRequest form) {
         Author author = form.convert();
         authorRepository.save(author);
-        return ResponseEntity.ok(new AuthorDto(author));
+        return ResponseEntity.ok(new CreteAuthorResponse(author));
     }
 }

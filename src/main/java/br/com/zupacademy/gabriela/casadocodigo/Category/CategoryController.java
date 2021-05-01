@@ -2,7 +2,6 @@ package br.com.zupacademy.gabriela.casadocodigo.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,9 +18,9 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDto> create(@RequestBody @Valid CreateCategoryForm form) {
+    public ResponseEntity<CreateCategoryResponse> create(@RequestBody @Valid CreateCategoryRequest form) {
         Category category = form.convert();
         categoryRepository.save(category);
-        return ResponseEntity.ok(new CategoryDto(category));
+        return ResponseEntity.ok(new CreateCategoryResponse(category));
     }
 }

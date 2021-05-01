@@ -4,9 +4,9 @@ import br.com.zupacademy.gabriela.casadocodigo.Util.CustomValidation.UniqueValue
 
 import javax.validation.constraints.*;
 
-public class CreateAuthorForm {
+public class CreateAuthorRequest {
 
-    public CreateAuthorForm(String name, String email, String description) {
+    public CreateAuthorRequest(String name, String email, String description) {
         this.name = name;
         this.email = email;
         this.description = description;

@@ -1,10 +1,10 @@
 package br.com.zupacademy.gabriela.casadocodigo.Category;
 
-public class CategoryDto {
+public class CreateCategoryResponse {
     private final Long id;
     private final String name;
 
-    public CategoryDto(Category category) {
+    public CreateCategoryResponse(Category category) {
         this.id = category.getId();
         this.name = category.getName();
     }

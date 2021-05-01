@@ -2,9 +2,9 @@ package br.com.zupacademy.gabriela.casadocodigo.Author;
 
 import java.time.LocalDateTime;
 
-public class AuthorDto {
+public class CreteAuthorResponse {
 
-    AuthorDto(Author author) {
+    CreteAuthorResponse(Author author) {
         this.id = author.getId();
         this.name = author.getName();
         this.email = author.getEmail();
