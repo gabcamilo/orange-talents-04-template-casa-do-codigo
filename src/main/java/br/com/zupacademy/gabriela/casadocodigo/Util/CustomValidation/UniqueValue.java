@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Target({FIELD})
 @Retention(RUNTIME)
 public @interface UniqueValue {
-    String message() default "O valor deve ser único";
+    String message() default "The field must be unique";
 
     Class<?>[] groups() default {};
 
