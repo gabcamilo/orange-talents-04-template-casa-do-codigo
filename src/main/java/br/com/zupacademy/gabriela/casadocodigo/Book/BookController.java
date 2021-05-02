@@ -33,6 +33,7 @@ public class BookController {
     }
 
     //Controller is lo longer 100% cohesive
+    //TODO: Divide controllers in GetControllers and PostControllers so they become cohesive once again
     @GetMapping
     public ResponseEntity<List<ListBooksResponse>> list() {
         Iterable<Book> books = bookRepository.findAll();

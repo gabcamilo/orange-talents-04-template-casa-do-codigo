@@ -25,6 +25,8 @@ public class CreateBookResponse {
     private Integer numberOfPages;
     private String isbn;
     private LocalDate publishingDate;
+
+    //TODO: Make non-entity responses to author and category attributes
     private Category category;
     private Author author;
 
