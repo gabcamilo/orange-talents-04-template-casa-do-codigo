@@ -6,11 +6,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.*;
 
 @Constraint(validatedBy = {ExistsValidator.class})
 @Retention(RetentionPolicy.RUNTIME)
-@Target({FIELD})
+@Target({FIELD, PARAMETER})
 public @interface Exists {
     String message() default "The informed id does not exit";
 

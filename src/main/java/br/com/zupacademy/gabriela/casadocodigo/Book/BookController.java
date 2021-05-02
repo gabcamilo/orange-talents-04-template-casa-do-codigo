@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
@@ -36,5 +37,15 @@ public class BookController {
     public ResponseEntity<List<ListBooksResponse>> list() {
         Iterable<Book> books = bookRepository.findAll();
         return ResponseEntity.ok(ListBooksResponse.createBooksList(books));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BookDetailsResponse> get(@PathVariable Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+
+        if (book.isEmpty()) {
+            return ResponseEntity.notFound().build(); // 404
+        }
+        return ResponseEntity.ok(new BookDetailsResponse(book.get())); // 200
     }
 }
