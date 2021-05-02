@@ -4,12 +4,10 @@ import br.com.zupacademy.gabriela.casadocodigo.Author.AuthorRepository;
 import br.com.zupacademy.gabriela.casadocodigo.Category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/books")
@@ -31,5 +29,12 @@ public class BookController {
         Book book = form.convert(categoryRepository, authorRepository);
         bookRepository.save(book);
         return ResponseEntity.ok(new CreateBookResponse(book));
+    }
+
+    //Controller is lo longer 100% cohesive
+    @GetMapping
+    public ResponseEntity<List<ListBooksResponse>> list() {
+        Iterable<Book> books = bookRepository.findAll();
+        return ResponseEntity.ok(ListBooksResponse.createBooksList(books));
     }
 }
