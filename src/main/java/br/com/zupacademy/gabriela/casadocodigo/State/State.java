@@ -10,7 +10,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class State {
 
     public State(String name, Country country) {
-        Name = name;
+        this.name = name;
         this.country = country;
     }
 
@@ -22,7 +22,7 @@ public class State {
     @SequenceGenerator(name = "country_id_unique", sequenceName = "country_id_unique", allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "country_id_unique")
     private Long id;
-    private String Name;
+    private String name;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -33,7 +33,7 @@ public class State {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public Country getCountry() {

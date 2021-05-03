@@ -15,7 +15,6 @@ public class CreateStateRequest {
     }
 
     @NotBlank
-    @UniqueValue(domainClass = State.class, fieldName = "name")
     private String name;
 
     @NotNull
@@ -25,5 +24,13 @@ public class CreateStateRequest {
     public State convert(CountryRepository countryRepository) {
         Country country = countryRepository.findById(country_id).get();
         return new State(name, country);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Long getCountry_id() {
+        return country_id;
     }
 }
